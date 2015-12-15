@@ -1,0 +1,62 @@
+{% extends 'uniMarcaBundle::layout.html.twig' %}
+
+{% block cuerpo -%}
+    
+
+    <table class="record_properties">
+        <tbody>
+          
+            <tr>
+               
+                <td><center><h1>{{ entity.titulo }}</h1></center></td>
+            </tr>
+              
+                
+                
+        <h6> {{ entity.autor }} {{ entity.fechaPub|date('Y-m-d') }}</h6>
+            
+            
+                
+               
+                
+            <tr>
+                
+                <td>{{ entity.contenido }}</td>
+            </tr>
+            <tr>
+                
+                <td><img src="{{ asset('bundles/unimarca/imagenes/'~ entity.foto  ~ '') }}" width=50% height=50%/></td>
+            </tr>
+          
+        </tbody>
+    </table>
+
+     
+            
+            {% for comen in entity.notcoms %}
+            
+                <h5>COMENTARIOS:</h5> 
+                
+        <a href="{{ path('comentarios_show', { 'id': comen.id }) }}">{{ comen.nombreCom }}</a>
+        <br>
+        
+         <a>{{ comen.descCom }}</a>
+         <br>
+         <br>                    
+                
+             {% endfor %}
+  
+            
+            
+            
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('noticias') }}">
+            Volver
+        </a>
+        <li>
+            <a href="{{ path('noticias_edit', { 'id': entity.id }) }}">Editar</a>
+        </li>
+    </li>
+  
+{% endblock %}

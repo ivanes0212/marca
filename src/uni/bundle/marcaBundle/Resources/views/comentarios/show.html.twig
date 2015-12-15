@@ -1,0 +1,44 @@
+{% extends 'uniMarcaBundle::layout.html.twig' %}
+
+{% block cuerpo %}
+    <h1>comentarios</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombrecom</th>
+                <td>{{ entity.nombreCom }}</td>
+            </tr>
+            <tr>
+                <th>Desccom</th>
+                <td>{{ entity.descCom }}</td>
+            </tr>
+            <tr>
+                <th>Fechacom</th>
+                <td>{{ entity.fechaCom|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Nickcom</th>
+                <td>{{ entity.nickCom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('comentarios') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('comentarios_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
