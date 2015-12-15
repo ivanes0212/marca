@@ -17,11 +17,15 @@ security:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    ivan:  { password: ivan, roles: [ 'ROLE_USER' ] }
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
+        new:
+            pattern: ^/new/
+            http_basic: ~
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -50,3 +54,4 @@ security:
     # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/new, roles: ROLE_USER }
