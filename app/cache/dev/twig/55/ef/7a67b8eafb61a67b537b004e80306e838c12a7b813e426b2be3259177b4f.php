@@ -60,13 +60,42 @@ class __TwigTemplate_55ef7a67b8eafb61a67b537b004e80306e838c12a7b813e426b2be32591
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "compania"), "html", null, true);
         echo "</td>
             </tr>
+            <tr>
+                <th>Noticias:</th>
+        <br>
+                   
+             <td>
+                 ";
+        // line 29
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "anunnot"));
+        foreach ($context['_seq'] as $context["_key"] => $context["noticia"]) {
+            // line 30
+            echo "            
+                
+            <a href=\"";
+            // line 32
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("noticias_show", array("id" => $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : $this->getContext($context, "noticia")), "id"))), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : $this->getContext($context, "noticia")), "titulo"), "html", null, true);
+            echo "</a>
+            <br>
+                
+             ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['noticia'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 36
+        echo "             </td>
+             </tr>
         </tbody>
     </table>
 
         <ul class=\"record_actions\">
     <li>
         <a href=\"";
-        // line 29
+        // line 43
         echo $this->env->getExtension('routing')->getPath("anuncios");
         echo "\">
             Back to the list
@@ -74,14 +103,14 @@ class __TwigTemplate_55ef7a67b8eafb61a67b537b004e80306e838c12a7b813e426b2be32591
     </li>
     <li>
         <a href=\"";
-        // line 34
+        // line 48
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("anuncios_edit", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
         echo "\">
             Edit
         </a>
     </li>
     <li>";
-        // line 38
+        // line 52
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["delete_form"]) ? $context["delete_form"] : $this->getContext($context, "delete_form")), 'form');
         echo "</li>
 </ul>
@@ -100,6 +129,6 @@ class __TwigTemplate_55ef7a67b8eafb61a67b537b004e80306e838c12a7b813e426b2be32591
 
     public function getDebugInfo()
     {
-        return array (  85 => 38,  78 => 34,  70 => 29,  60 => 22,  53 => 18,  46 => 14,  39 => 10,  31 => 4,  28 => 3,);
+        return array (  114 => 52,  107 => 48,  99 => 43,  90 => 36,  78 => 32,  74 => 30,  70 => 29,  60 => 22,  53 => 18,  46 => 14,  39 => 10,  31 => 4,  28 => 3,);
     }
 }

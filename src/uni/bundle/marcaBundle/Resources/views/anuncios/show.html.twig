@@ -21,6 +21,20 @@
                 <th>Compania</th>
                 <td>{{ entity.compania }}</td>
             </tr>
+            <tr>
+                <th>Noticias:</th>
+     
+                   
+             <td>
+                 {% for noticia in entity.anunnot %}
+            
+                
+            <a href="{{ path('noticias_show', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a>
+            <br>
+                
+             {% endfor %}
+             </td>
+             </tr>
         </tbody>
     </table>
 
