@@ -1,0 +1,15 @@
+{% extends 'uniMarcaBundle::layout.html.twig' %}
+
+{% block cuerpo %}
+    <h1>anuncios creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('anuncios') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

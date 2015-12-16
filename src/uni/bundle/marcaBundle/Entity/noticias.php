@@ -217,7 +217,9 @@ protected $categoria;
     protected $notcoms;
     
     public function __construct() {
-$this->notcoms = new ArrayCollection();}
+$this->notcoms = new ArrayCollection();
+$this->notanun = new ArrayCollection();
+    }
 
     /**
      * Add notcoms
@@ -254,4 +256,43 @@ $this->notcoms = new ArrayCollection();}
     
       public function __toString() {
      return $this->titulo;}
+     
+           /**
+* @ORM\ManyToMany(targetEntity="anuncios", mappedBy="anunnot")
+*/
+
+private $notanun;
+
+    /**
+     * Add notanun
+     *
+     * @param \uni\bundle\marcaBundle\Entity\anuncios $notanun
+     * @return noticias
+     */
+    public function addNotanun(\uni\bundle\marcaBundle\Entity\anuncios $notanun)
+    {
+        $this->notanun[] = $notanun;
+
+        return $this;
+    }
+
+    /**
+     * Remove notanun
+     *
+     * @param \uni\bundle\marcaBundle\Entity\anuncios $notanun
+     */
+    public function removeNotanun(\uni\bundle\marcaBundle\Entity\anuncios $notanun)
+    {
+        $this->notanun->removeElement($notanun);
+    }
+
+    /**
+     * Get notanun
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNotanun()
+    {
+        return $this->notanun;
+    }
 }

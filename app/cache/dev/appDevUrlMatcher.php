@@ -122,6 +122,66 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/anuncios')) {
+            // anuncios
+            if (rtrim($pathinfo, '/') === '/anuncios') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'anuncios');
+                }
+
+                return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::indexAction',  '_route' => 'anuncios',);
+            }
+
+            // anuncios_show
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_show')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::showAction',));
+            }
+
+            // anuncios_new
+            if ($pathinfo === '/anuncios/new') {
+                return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::newAction',  '_route' => 'anuncios_new',);
+            }
+
+            // anuncios_create
+            if ($pathinfo === '/anuncios/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_anuncios_create;
+                }
+
+                return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::createAction',  '_route' => 'anuncios_create',);
+            }
+            not_anuncios_create:
+
+            // anuncios_edit
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::editAction',));
+            }
+
+            // anuncios_update
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_anuncios_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::updateAction',));
+            }
+            not_anuncios_update:
+
+            // anuncios_delete
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_anuncios_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\anunciosController::deleteAction',));
+            }
+            not_anuncios_delete:
+
+        }
+
         if (0 === strpos($pathinfo, '/c')) {
             if (0 === strpos($pathinfo, '/comentarios')) {
                 // comentarios
@@ -138,48 +198,51 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_show')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::showAction',));
                 }
 
-                // comentarios_new
-                if ($pathinfo === '/comentarios/new') {
-                    return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::newAction',  '_route' => 'comentarios_new',);
-                }
-
-                // comentarios_create
-                if ($pathinfo === '/comentarios/create') {
-                    if ($this->context->getMethod() != 'POST') {
-                        $allow[] = 'POST';
-                        goto not_comentarios_create;
+                if (0 === strpos($pathinfo, '/comentarios/conSeguridad')) {
+                    // comentarios_new
+                    if ($pathinfo === '/comentarios/conSeguridad/new') {
+                        return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::newAction',  '_route' => 'comentarios_new',);
                     }
 
-                    return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::createAction',  '_route' => 'comentarios_create',);
-                }
-                not_comentarios_create:
+                    // comentarios_create
+                    if ($pathinfo === '/comentarios/conSeguridad/create') {
+                        if ($this->context->getMethod() != 'POST') {
+                            $allow[] = 'POST';
+                            goto not_comentarios_create;
+                        }
 
-                // comentarios_edit
-                if (preg_match('#^/comentarios/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::editAction',));
-                }
+                        return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::createAction',  '_route' => 'comentarios_create',);
+                    }
+                    not_comentarios_create:
 
-                // comentarios_update
-                if (preg_match('#^/comentarios/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
-                        $allow = array_merge($allow, array('POST', 'PUT'));
-                        goto not_comentarios_update;
+                    // comentarios_edit
+                    if (preg_match('#^/comentarios/conSeguridad/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::editAction',));
                     }
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::updateAction',));
-                }
-                not_comentarios_update:
+                    // comentarios_update
+                    if (preg_match('#^/comentarios/conSeguridad/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_comentarios_update;
+                        }
 
-                // comentarios_delete
-                if (preg_match('#^/comentarios/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
-                        $allow = array_merge($allow, array('POST', 'DELETE'));
-                        goto not_comentarios_delete;
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::updateAction',));
                     }
+                    not_comentarios_update:
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::deleteAction',));
+                    // comentarios_delete
+                    if (preg_match('#^/comentarios/conSeguridad/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                            $allow = array_merge($allow, array('POST', 'DELETE'));
+                            goto not_comentarios_delete;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'comentarios_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\comentariosController::deleteAction',));
+                    }
+                    not_comentarios_delete:
+
                 }
-                not_comentarios_delete:
 
             }
 
@@ -198,48 +261,51 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_show')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::showAction',));
                 }
 
-                // categorias_new
-                if ($pathinfo === '/categorias/new') {
-                    return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::newAction',  '_route' => 'categorias_new',);
-                }
-
-                // categorias_create
-                if ($pathinfo === '/categorias/create') {
-                    if ($this->context->getMethod() != 'POST') {
-                        $allow[] = 'POST';
-                        goto not_categorias_create;
+                if (0 === strpos($pathinfo, '/categorias/conSeguridad')) {
+                    // categorias_new
+                    if ($pathinfo === '/categorias/conSeguridad/new') {
+                        return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::newAction',  '_route' => 'categorias_new',);
                     }
 
-                    return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::createAction',  '_route' => 'categorias_create',);
-                }
-                not_categorias_create:
+                    // categorias_create
+                    if ($pathinfo === '/categorias/conSeguridad/create') {
+                        if ($this->context->getMethod() != 'POST') {
+                            $allow[] = 'POST';
+                            goto not_categorias_create;
+                        }
 
-                // categorias_edit
-                if (preg_match('#^/categorias/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::editAction',));
-                }
+                        return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::createAction',  '_route' => 'categorias_create',);
+                    }
+                    not_categorias_create:
 
-                // categorias_update
-                if (preg_match('#^/categorias/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
-                        $allow = array_merge($allow, array('POST', 'PUT'));
-                        goto not_categorias_update;
+                    // categorias_edit
+                    if (preg_match('#^/categorias/conSeguridad/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::editAction',));
                     }
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::updateAction',));
-                }
-                not_categorias_update:
+                    // categorias_update
+                    if (preg_match('#^/categorias/conSeguridad/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_categorias_update;
+                        }
 
-                // categorias_delete
-                if (preg_match('#^/categorias/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
-                        $allow = array_merge($allow, array('POST', 'DELETE'));
-                        goto not_categorias_delete;
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::updateAction',));
                     }
+                    not_categorias_update:
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::deleteAction',));
+                    // categorias_delete
+                    if (preg_match('#^/categorias/conSeguridad/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                            $allow = array_merge($allow, array('POST', 'DELETE'));
+                            goto not_categorias_delete;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'categorias_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\categoriasController::deleteAction',));
+                    }
+                    not_categorias_delete:
+
                 }
-                not_categorias_delete:
 
             }
 
@@ -259,49 +325,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             if (preg_match('#^/noticias/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_show')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::showAction',));
             }
-
-            // noticias_new
-            if ($pathinfo === '/noticias/new') {
-                return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::newAction',  '_route' => 'noticias_new',);
-            }
-
-            // noticias_create
-            if ($pathinfo === '/noticias/create') {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_noticias_create;
-                }
-
-                return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::createAction',  '_route' => 'noticias_create',);
-            }
-            not_noticias_create:
-
-            // noticias_edit
-            if (preg_match('#^/noticias/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::editAction',));
-            }
-
-            // noticias_update
-            if (preg_match('#^/noticias/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
-                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
-                    $allow = array_merge($allow, array('POST', 'PUT'));
-                    goto not_noticias_update;
-                }
-
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::updateAction',));
-            }
-            not_noticias_update:
-
-            // noticias_delete
-            if (preg_match('#^/noticias/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
-                    $allow = array_merge($allow, array('POST', 'DELETE'));
-                    goto not_noticias_delete;
-                }
-
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::deleteAction',));
-            }
-            not_noticias_delete:
 
             // noticias_buscar_autor
             if ($pathinfo === '/noticias/buscarautor') {
@@ -350,6 +373,52 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::responderTitulolikeAction',  '_route' => 'noticias_responder_titulolike',);
             }
             not_noticias_responder_titulolike:
+
+            if (0 === strpos($pathinfo, '/noticias/conSeguridad')) {
+                // noticias_new
+                if ($pathinfo === '/noticias/conSeguridad/new') {
+                    return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::newAction',  '_route' => 'noticias_new',);
+                }
+
+                // noticias_create
+                if ($pathinfo === '/noticias/conSeguridad/create') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_noticias_create;
+                    }
+
+                    return array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::createAction',  '_route' => 'noticias_create',);
+                }
+                not_noticias_create:
+
+                // noticias_edit
+                if (preg_match('#^/noticias/conSeguridad/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_edit')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::editAction',));
+                }
+
+                // noticias_update
+                if (preg_match('#^/noticias/conSeguridad/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                        $allow = array_merge($allow, array('POST', 'PUT'));
+                        goto not_noticias_update;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_update')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::updateAction',));
+                }
+                not_noticias_update:
+
+                // noticias_delete
+                if (preg_match('#^/noticias/conSeguridad/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                        $allow = array_merge($allow, array('POST', 'DELETE'));
+                        goto not_noticias_delete;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'noticias_delete')), array (  '_controller' => 'uni\\bundle\\marcaBundle\\Controller\\noticiasController::deleteAction',));
+                }
+                not_noticias_delete:
+
+            }
 
         }
 

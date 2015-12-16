@@ -22,6 +22,7 @@ class noticiasType extends AbstractType
             ->add('fechaPub')
             ->add('categoria')
             ->add('notcoms')
+            ->add('notanun')
             
         ;
     }
