@@ -8,7 +8,7 @@
           
             <tr>
                
-                <td><center><h1>{{ entity.titulo }}</h1></center></td>
+                <td><h1><text align="center>">{{ entity.titulo }}<text></h1></td>
             </tr>
               
                 
@@ -21,7 +21,7 @@
                 
             <tr>
                 
-                <td>{{ entity.contenido }}</td>
+                <td><text align="center>"><font size="4">{{ entity.contenido }}</font></text></td>
             </tr>
             <tr>
                 
@@ -32,10 +32,10 @@
     </table>
 
      
-            
+            <h5>COMENTARIOS:</h5> 
             {% for comen in entity.notcoms %}
             
-                <h5>COMENTARIOS:</h5> 
+                
                 
         <a href="{{ path('comentarios_show', { 'id': comen.id }) }}">{{ comen.nombreCom }}</a>
         <br>
@@ -45,8 +45,22 @@
          <br>                    
                 
              {% endfor %}
-  
+             
+             
+              
+             {% for anuncio in entity.notanun %}
             
+                
+                 <font size="2"><div align="right"><a href="{{ path('anuncios_show', { 'id': anuncio.id }) }}">{{ anuncio.nombre }}</a>
+        <br>
+        
+        <a>{{ anuncio.texto}}</a> </div></font>
+         <br>
+         <br>                    
+                
+             {% endfor %}
+           
+             
             
             
         <ul class="record_actions">
