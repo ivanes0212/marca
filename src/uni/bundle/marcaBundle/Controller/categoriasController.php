@@ -222,5 +222,34 @@ class categoriasController extends Controller
         ;
     }
     
+     public function buscarCategoriaAction()
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('uniMarcaBundle:categorias')->findAll();
+
+        return $this->render('uniMarcaBundle:categorias:buscarCategoria.html.twig', array(
+            'cats' => $entities,
+        ));
+    }
+
+   public function responderCategoriaAction(Request $request)
+    {
+      //    $nom= $_POST['categoria']; // Coger variables usando php clásico.
+         $nom= $request->request->get('nombre'); // Modo symfony2
+         
+         $em = $this->getDoctrine()->getManager();
+        if  ($nom=="Todas")
+                $entities = $em->getRepository('uniMarcaBundle:categorias')->findAll();
+        else 
+            $entities = $em->getRepository('uniMarcaBundle:categorias')->findByNombreCat($nom);
+
+        return $this->render('uniMarcaBundle:categorias:responderCategoria.html.twig', array(
+            'entities' => $entities,
+            'nomCat'=> $nom,
+        ));
+    }
+    
   
 }

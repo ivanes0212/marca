@@ -1,0 +1,35 @@
+{% extends 'uniMarcaBundle::layout.html.twig' %}
+
+{% block cuerpo %}
+    
+    <h1>Listado de categorias {{nomCat}}:</h1>
+ <tbody>
+        {% for entity in entities %}
+            
+            
+        <h2><a href="{{ path('categorias_show', { 'id': entity.id }) }}">{{ entity.nombreCat }}</a></h2>
+              
+        <h6>{{ entity.descCat }} 
+                
+       
+                <br>
+                
+                
+                
+                
+        {% endfor %}
+        </tbody>
+  
+
+        <ul>
+        <li>
+            <a href="{{ path('noticias_new') }}">
+                Create a new entry
+            </a>
+        </li> 
+        
+    </ul>
+      
+    
+{% endblock %}
+

@@ -8,3 +8,11 @@ categorias_show:
 uni_marca_categorias:
     resource: "@uniMarcaBundle/Resources/config/routing/conSeguridad/categoriasSeguridad.yml"
     prefix:   /conSeguridad
+categorias_buscar_categoria:
+    path:     /buscarcategoria
+    defaults: { _controller: "uniMarcaBundle:categorias:buscarCategoria" }
+
+categorias_responder_categoria:
+    path:     /respondercategoria
+    defaults: { _controller: "uniMarcaBundle:categorias:responderCategoria" }
+    requirements: { _method: post|put }
